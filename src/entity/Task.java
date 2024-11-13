@@ -16,7 +16,7 @@ public class Task {
     private String description;
     private Status status;
 
-    public Task(){
+    public Task() {
         this.id = incrementCounter();
     }
 
