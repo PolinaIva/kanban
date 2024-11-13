@@ -1,49 +1,45 @@
 package entity;
 
 import enums.Status;
-import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.ToString;
 
-import java.util.Set;
+import java.util.*;
 
 @Getter
-@ToString
-@EqualsAndHashCode(callSuper = true)
 public class Epic extends Task {
 
-    private Set<Subtask> subtaskSet;
+    private List<Subtask> subtaskList = new ArrayList<>();
 
     public Epic(String name, String description) {
         super(name,description, Status.NEW);
     }
-    public Epic(String name, String description, Set<Subtask> subtaskSet) {
+    public Epic(String name, String description,List<Subtask> subtaskList) {
 
-        super(name,description,createStatus(subtaskSet));
-        this.subtaskSet = subtaskSet;
+        super(name,description,createStatus(subtaskList));
+        this.subtaskList = subtaskList;
 
     }
 
-    public void setSubtaskSet(Set<Subtask> subtaskSet) {
-        this.subtaskSet = subtaskSet;
-        setStatus(createStatus(this.subtaskSet));
+    public void setSubtaskList(List<Subtask> subtaskList) {
+        this.subtaskList = subtaskList;
+        this.updateStatus();
     }
 
     public void addSubtask(Subtask subtask) {
-        subtaskSet.add(subtask);
-        setStatus(createStatus(subtaskSet));
+        subtaskList.add(subtask);
+        this.updateStatus();
     }
-    public void addSubtasks(Set<Subtask> subtaskSet) {
-        this.subtaskSet.addAll(subtaskSet);
-        setStatus(createStatus(this.subtaskSet));
+    public void addSubtasks(List<Subtask> subtaskList) {
+        this.subtaskList.addAll(subtaskList);
+        this.updateStatus();
     }
 
     public void updateStatus() {
-        createStatus(this.subtaskSet);
+        setStatus(createStatus(this.subtaskList));
     }
 
-    private static Status createStatus(Set<Subtask> subtaskList) {
-        if(subtaskList.isEmpty()) return Status.NEW;
+    private static Status createStatus(List<Subtask> subtaskList) {
+        if(Objects.isNull(subtaskList)|| subtaskList.isEmpty()) return Status.NEW;
         int countNew = (int) subtaskList.stream()
                 .filter(s -> s.getStatus() == Status.NEW)
                 .count();
@@ -65,5 +61,8 @@ public class Epic extends Task {
         return Status.IN_PROGRESS;
     }
 
-
+    @Override
+    public String toString() {
+        return "Epic " + super.toString();
+    }
 }

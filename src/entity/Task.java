@@ -6,7 +6,6 @@ import lombok.*;
 
 @Getter
 @Setter
-@ToString
 @EqualsAndHashCode
 public class Task {
 
@@ -31,5 +30,15 @@ public class Task {
     private static int incrementCounter() {
 
         return taskCounter++;
+    }
+
+    @Override
+    public String toString() {
+        return "Task {" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", status=" + status +
+                '}';
     }
 }
