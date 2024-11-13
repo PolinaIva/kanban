@@ -11,12 +11,12 @@ public class Epic extends Task {
     private List<Subtask> subtaskList = new ArrayList<>();
 
     public Epic(String name, String description) {
-        super(name,description, Status.NEW);
+        super(name, description, Status.NEW);
     }
 
-    public Epic(String name, String description,List<Subtask> subtaskList) {
+    public Epic(String name, String description, List<Subtask> subtaskList) {
 
-        super(name,description,createStatus(subtaskList));
+        super(name, description, createStatus(subtaskList));
         this.subtaskList = subtaskList;
 
     }
@@ -41,7 +41,7 @@ public class Epic extends Task {
     }
 
     private static Status createStatus(List<Subtask> subtaskList) {
-        if(Objects.isNull(subtaskList)|| subtaskList.isEmpty()) return Status.NEW;
+        if (Objects.isNull(subtaskList) || subtaskList.isEmpty()) return Status.NEW;
         int countNew = (int) subtaskList.stream()
                 .filter(s -> s.getStatus() == Status.NEW)
                 .count();
