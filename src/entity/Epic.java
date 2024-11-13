@@ -1,11 +1,10 @@
 package entity;
 
 import enums.Status;
-import lombok.Getter;
+
 
 import java.util.*;
 
-@Getter
 public class Epic extends Task {
 
     private List<Subtask> subtaskList = new ArrayList<>();
@@ -19,6 +18,10 @@ public class Epic extends Task {
         super(name, description, createStatus(subtaskList));
         this.subtaskList = subtaskList;
 
+    }
+
+    public List<Subtask> getSubtaskList() {
+        return subtaskList;
     }
 
     public void setSubtaskList(List<Subtask> subtaskList) {
