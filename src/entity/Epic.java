@@ -13,6 +13,7 @@ public class Epic extends Task {
     public Epic(String name, String description) {
         super(name,description, Status.NEW);
     }
+
     public Epic(String name, String description,List<Subtask> subtaskList) {
 
         super(name,description,createStatus(subtaskList));
@@ -29,6 +30,7 @@ public class Epic extends Task {
         subtaskList.add(subtask);
         this.updateStatus();
     }
+
     public void addSubtasks(List<Subtask> subtaskList) {
         this.subtaskList.addAll(subtaskList);
         this.updateStatus();
