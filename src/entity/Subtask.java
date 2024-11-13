@@ -1,7 +1,8 @@
 package entity;
 
 import enums.Status;
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Getter
 @Setter
@@ -10,7 +11,7 @@ public class Subtask extends Task {
     private int epicId;
 
     public Subtask(String name, String description, Status status, int epicId) {
-        super(name,description,status);
+        super(name, description, status);
         this.epicId = epicId;
     }
 
