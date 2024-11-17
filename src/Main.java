@@ -1,13 +1,16 @@
 import entity.Epic;
-import entity.Manager;
 import entity.Subtask;
 import entity.Task;
 import enums.Status;
+import manager.util.Managers;
+import manager.TaskManager;
+
+import javax.naming.directory.NoSuchAttributeException;
 
 public class Main {
 
     public static void main(String[] args) {
-        Manager manager = new Manager();
+        TaskManager manager = Managers.getDefault();
 
         Task task1 = new Task("Задача 1", "Тестовая задача 1", Status.NEW);
         manager.createTask(task1);
@@ -20,15 +23,23 @@ public class Main {
         Subtask subtask1 = new Subtask("Сабтаска 1", "Тестовая сабтаска 1", Status.NEW, epic1.getId());
         Subtask subtask2 = new Subtask("Сабтаска 2", "Тестовая сабтаска 2", Status.NEW, epic1.getId());
 
-        manager.createSubtask(subtask1);
-        manager.createSubtask(subtask2);
+        try {
+            manager.createSubtask(subtask1);
+            manager.createSubtask(subtask2);
+        } catch (NoSuchAttributeException e) {
+            System.out.println("Вы пытаетесь создать сабтаску, связанную с несуществующим эпиком!");
+        }
+
 
         Epic epic2 = new Epic("Эпик 2", "Тестовый эпик 2");
         manager.createEpic(epic2);
 
         Subtask subtask3 = new Subtask("Сабтаска 3", "Тестовая сабтаска 3", Status.NEW, epic2.getId());
-        manager.createSubtask(subtask3);
-
+        try {
+            manager.createSubtask(subtask3);
+        } catch (NoSuchAttributeException e) {
+            System.out.println("Вы пытаетесь создать сабтаску, связанную с несуществующим эпиком!");
+        }
         System.out.println(manager.getEpicList());
         System.out.println(manager.getTaskList());
         System.out.println(manager.getSubtaskList());
@@ -51,6 +62,11 @@ public class Main {
 
         manager.deleteTask(task1.getId());
         manager.deleteEpic(epic1.getId());
+
+        manager.getTask(task2.getId());
+        manager.getSubtask(subtask3.getId());
+        System.out.println(manager.getHistory());
+
 
     }
 

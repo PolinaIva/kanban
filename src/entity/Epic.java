@@ -24,11 +24,6 @@ public class Epic extends Task {
         return subtaskList;
     }
 
-    public void setSubtaskList(List<Subtask> subtaskList) {
-        this.subtaskList = subtaskList;
-        this.updateStatus();
-    }
-
     public void addSubtask(Subtask subtask) {
         subtaskList.add(subtask);
         this.updateStatus();
